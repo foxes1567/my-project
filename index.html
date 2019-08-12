@@ -1,0 +1,116 @@
+<html lang="en"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>CSS Specificity</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        h6{
+            color:red;
+            font-size: 2.4em;
+        }
+
+        h1 {
+            color: rgb(19, 22, 189);
+        }
+        .blue-border {
+            border: 1px solid blue;
+            padding: 10px 0 30px 50px;
+            margin: 0 300px 50px 120px;
+        }
+        .bs {
+            border: 2px dashed orangered;
+        }
+        .center {
+            text-align: center;
+        }
+        .topic{
+            font-size: 28px;
+        }
+        h2{
+            color:black;
+        }
+        h3{
+            color: red;
+        }
+        h4{
+            color:red;
+            font-size: 1em;
+        }
+    </style>
+</head>
+<body >
+    <div class="menubar">
+        <div class="container">
+            <div class="logo">
+                <h1>CSS Specificity</h1>
+            </div>
+            <ul>
+                <li>
+                    <a href="foxweb.html">Home </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div>
+        <h6 class="center">CSS Specificity</h6>
+        <h2>ภาษา CSS เหมือนภาษาการเขียนโปรแกรมอื่น ๆ ที่อ่านโค้ดจาก บน – ล่าง ครับ แปลว่า ถ้าเขียน CSS Selector ซ้ำกัน 2 อัน อันล่างจะถูกนำไปใช้งานเพราะใหม่กว่า ตัวอย่างเช่น</h2>
+        <li><-style> type="text/css"><-/style></li>
+        <li>p{color:#black;}</li>
+        <li>p{color:#red;}</li>
+        <li><-/style></li>
+        <h2>จากค่า CSS ด้านบน จะพบว่าค่าสีของ p จะเป็นสีแดง</h2>
+        <h2>Css Specificity คือค่าบางอย่างที่จะจะบอก browser ว่าให้เลือกใช้ Style ตัวไหนมาแสดงผลหน้าเว็บ แน่นอนว่าจะต้องมีการคำนวนค่าออกมาเพื่อให้ browser รู้ได้นั่นเอง</h2>
+        <h2>ตัวอย่างง่าย ๆ ของเรื่อง CSS Specificity คือ ถ้าเราเขียน HTML/CSS แบบนี้:</h2>
+        <h2>HTML:</h2>
+        <img src="test.jpg" width="600" height="60" alt="">
+        <h2>CSS:</h2>
+        <img src="test2.jpg" width="600" height="60" alt="">
+        <h2>เราจะได้กล่องสีแดงมา 1 กล่อง ดังด้านล่างนี้ครับ</h2>
+        <div class="box" id="redbox">test</div>
+        <h2>CSS Selector ทั้ง 2 อันของเรามีค่าพลังต่างกัน โดยค่าพลังจะคำนวณจากการใช้ class, ID, !important หรือการซ้อน Element หลาย ๆ ชั้นครับ ยิ่ง Selector นั้นเจาะจงเท่าไหร่ยิ่งมีค่าพลังเยอะเท่านั้น เรามาดูกันว่า CSS Selector ในตัวอย่างมีค่าพลังเท่าไหร่กันบ้าง</h2>
+        <h3>.box { } มีค่าพลัง 10</h3>
+        <h3>#redbox { } มีค่าพลัง 100</h3>
+        <h2>เพราะฉะนั้น CSS Property ใน #redbox { } (ค่าพลัง 100) จะถูกดึงมาแสดงผลทับของ .box { } (ค่าพลัง 10) เพราะมี ค่าพลังมากกว่า นั่นเอง</h2>
+        <h6>วิธีคำนวณ “คะแนน” CSS SPECIFICITY</h6>
+        <h2>กลุ่มการเขียน style มีหลายแบบ ซึ่งในกลุ่มเดียวกันนั้น มันจะมีคะแนน specificity เท่ากัน</h2>
+                <li>(1) Inline style</li>
+                <li>(2) ID selectors</li>
+                <li>(3) Class selectors, Attributes selectors, Pseudo-classes</li>
+                <li>(4) Type selectors, Pseudo-elements</li>
+                <li>(5) Universal selector, Combinators, Negation pseudo-class</li>
+        <h2>ต่อไปผมกำหนดค่า specificity ให้แต่ละกลุ่มดังนี้</h2>
+                <li>แบบ (1) มีค่า specificity = 1000 </li>
+                <li>แบบ (2) มีค่า specificity = 100</li>
+                <li>แบบ (3) มีค่า specificity = 10</li>
+                <li>แบบ (4) มีค่า specificity = 1</li>
+                <li>แบบ (5) มีค่า specificity = 0 (ไม่มีค่า)</li>
+        <h2>ซึ่งค่าด้านบน เป็นค่าต่อ 1 ตัวเท่านั้น หากผมเขียน selector เป็น</h2>
+        <li>.containner.wrapper = { ... }</li>
+        <h2>แสดงว่าผมจะได้ค่า specificity เป็น 20 ( เพราะ 1 class มีค่า 10 ถ้า 2 class = 10+10)</h2>
+        <h4>ตัวอย่าง</h4>
+        <li>div a {...}              = 1+1          = 2</li>
+        <li>div h1 a apan {...}      = 1+1+1+1      = 4</li>
+        <li>.page h1 #title {...}    = 10+1+100     = 111</li>
+        <li>#nav .selected > a:hover = 100+10+1+10  = 121</li>
+        <li>li:first-child h2 .title = 1+10+1+10    = 22</li>
+        <h4>ตัวอย่างการใช้งาน</h4>
+        <h4>HTML:</h4>
+        <img src="test3.jpg" width="600" height="150" alt="">
+        <h4>CSS:</h4>
+        <img src="test5.jpg" width="600" height="200" alt="">
+        <h4>ผลลัพธ์ที่ได้คือ</h4>
+        <div id="page">
+                <div class="box2">
+                   <p> Hello world </p>
+                </div>
+              </div>
+        <h4>เพราะ การเขียนแบบแรกมีค่า specificity มากกว่าแบบหลังนั่นเอง (110 > 101)</h4>
+        <h2>สำหรับคำสั่ง !important นั้นถ้าใส่เข้าไปจะเป็นการบังคับใช้ CSS นั้นทันที ไม่ต้องดู คะแนน เลย (หรือจะใช้วิธีจำว่าค่าพลัง Infinity เลยก็ได้)</h2>
+        <h2>สำหรับใครที่ขี้เกียจคำนวณค่าพวกนี้ จริงๆมันก็มี web ให้เราสามารถ copy selector ไปวางได้เลยที่ </h2>
+        <a href="https://specificity.keegan.st/">specificity calculator</a>
+
+
+
+
+</body></html>
